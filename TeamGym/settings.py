@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,6 +42,17 @@ INSTALLED_APPS = [
     'appTeamGym',
 ]
 
+SIMPLE_JWT = {
+'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+'ROTATE_REFRESH_TOKENS': False,
+'BLACKLIST_AFTER_ROTATION': True,
+'UPDATE_LAST_LOGIN': False,
+'ALGORITHM': 'HS256',
+'USER_ID_FIELD': 'id',
+'USER_ID_CLAIM': 'user_id',
+}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -50,6 +62,15 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+REST_FRAMEWORK = {
+'DEFAULT_PERMISSION_CLASSES': (
+'rest_framework.permissions.AllowAny',
+),
+'DEFAULT_AUTHENTICATION_CLASSES': (
+'rest_framework_simplejwt.authentication.JWTAuthentication',
+)
+}
 
 ROOT_URLCONF = 'TeamGym.urls'
 
@@ -76,10 +97,14 @@ WSGI_APPLICATION = 'TeamGym.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+'default': {
+'ENGINE': 'django.db.backends.postgresql_psycopg2',
+'NAME': 'd2tm4fbs4nnjfj',
+'USER': 'immqfyrwkhjffi',
+'PASSWORD': '8607ec7cb12af59e65665965df0a20fc2107e3bb800777e57720577e7bb4644b',
+'HOST': 'ec2-52-7-228-45.compute-1.amazonaws.com',
+'PORT': '5432',
+}
 }
 
 
