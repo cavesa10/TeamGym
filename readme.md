@@ -6,11 +6,13 @@
 `pip install django`
 `pip install djangorestframework`
 
+4. Correr servidor
+`py manage.py runserver`
+Enjoy code :D!
+
 INTEGRANTES:
 - Carlos Vesga
 - Sebastian Restrepo
 - Santigo Melo
-
-4. Correr servidor
-`py manage.py runserver`
-Enjoy code :D!
+- Jaly Santamaria
+- Paula Roya
