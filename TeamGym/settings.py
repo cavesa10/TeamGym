@@ -71,6 +71,7 @@ REST_FRAMEWORK = {
 'rest_framework_simplejwt.authentication.JWTAuthentication',
 )
 }
+AUTH_USER_MODEL = 'appTeamGym.User'
 
 ROOT_URLCONF = 'TeamGym.urls'
 
