@@ -7,7 +7,7 @@ class UserSerializer(serializers.ModelSerializer):
   imc = imc_serializer()
   class Meta:
     model = User
-    fields = ['id', 'username', 'password', 'email', 'name', 'last_name','fecha_nacimiento', 'frecuencia_fisica','objetivo_usuario','estatura','estatura','peso','genero','imc']
+    fields = ['id', 'username', 'password', 'email', 'name', 'last_name','fecha_nacimiento', 'frequencia_fisica','objetivo_usuario','estatura','peso','genero','imc']
 
   def create(self, validated_data):
     imcData = validated_data.pop('imc') #sobrescritura, crear cuenta y usuarios
@@ -21,14 +21,15 @@ class UserSerializer(serializers.ModelSerializer):
       'id': user.id,
       'username': user.username,
       'password': user.password,
-      'name': user.email,
+      'email': user.email,
+      'name': user.name,
       'last_name': user.last_name,
       'fecha_nacimiento': user.fecha_nacimiento,
-      'frecuencia_fisica': user.frecuencia_fisica,
+      'frequencia_fisica': user.frequencia_fisica,
       'objetivo_usuario': user.objetivo_usuario,
+      'estatura': user.estatura,
       'peso': user.peso,
       'genero': user.genero,
-      'estatura': user.estatura,
       'imc': {
         'imc_id': imc.imc_id,
         'imc_value': imc.imc_value,
