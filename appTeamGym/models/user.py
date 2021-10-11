@@ -43,7 +43,7 @@ class User(AbstractBaseUser, PermissionsMixin):
   estatura = models.CharField('Estatura', max_length=30)
   peso = models.IntegerField('Peso', default=0)
   genero = models.CharField('Genero', max_length=30)
-  #plan = models.ForeignKey(Planes, related_name='planes', on_delete=models.CASCADE)
+  plan_id = models.ForeignKey(Planes, related_name='planes', on_delete=models.CASCADE)
 
 
   def save(self, **kwargs):
