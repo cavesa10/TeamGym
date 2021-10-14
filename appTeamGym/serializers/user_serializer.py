@@ -14,12 +14,18 @@ class UserSerializer(serializers.ModelSerializer):
 
   def create(self, validated_data):
     planId = validated_data.pop('plan_id')
-    imcValues = validated_data.get('peso')/(validated_data.get('estatura')*validated_data.get('estatura'))
+    imcValues = validated_data.get('peso')/(validated_data.get('estatura')**2)
     planeObject = Planes.objects.get(plan_id=planId.plan_id)
     userInstance = User.objects.create(plan_id = planeObject,**validated_data)
     Imc.objects.create(user=userInstance, imc_value = imcValues)
     return userInstance
-
+  # def update(self, validated_data):
+  #   planId = validated_data.pop('plan_id')
+  #   imcValues = validated_data.get('peso')/(validated_data.get('estatura')**2)
+  #   planeObject = Planes.objects.get(plan_id=planId.plan_id)
+  #   userInstance = User.objects.create(plan_id = planeObject,**validated_data)
+  #   Imc.objects.create(user=userInstance, imc_value = imcValues)
+  #   return userInstance
   def to_representation(self, value):
     user = User.objects.get(id=value.id)
     plan = Planes.objects.get(plan_id=value.id)

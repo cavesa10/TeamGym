@@ -7,7 +7,7 @@ from appTeamGym.models.user import User
 from appTeamGym.serializers.user_serializer import UserSerializer
 
 
-class UserDetailView(generics.RetrieveAPIView):
+class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all() # obtiene el modelo seleccionado
     serializer_class = UserSerializer # serializa la info recibido
     permission_classes = (IsAuthenticated, )
