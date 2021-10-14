@@ -7,17 +7,17 @@ from rest_framework.relations import PrimaryKeyRelatedField
 
 class UserSerializer(serializers.ModelSerializer):
   imc = imc_serializer(read_only=True)
-  plan_id = PrimaryKeyRelatedField(queryset=Planes.objects.values_list('plan_id'), required=False)
-  #plan_id = PrimaryKeyRelatedField(many=True, required=False)
+  plan_id = PrimaryKeyRelatedField(queryset=Planes.objects.all(), required=False)
+  #plan_id = PrimaryKeyRelatedField(queryset=Planes.objects.all().values_list('plan_id'), required=False)
   class Meta:
     model = User
     fields = ['username', 'password', 'email', 'name', 'last_name','fecha_nacimiento', 'frequencia_fisica','objetivo_usuario','estatura','peso','genero','imc','plan_id']
 
-  def create(self, validated_data):#sobrescritura, crear cuenta y usuarios
+  def create(self, validated_data):
     planId = validated_data.pop('plan_id')
-    imcValues = validated_data.get('peso')*validated_data.get('estatura')
-    planeObject = Planes.objects.get(plan_id=planId)
-    userInstance = User.objects.create(plan = planeObject,**validated_data) # toma y elimina todas las
+    imcValues = validated_data.get('peso')/(validated_data.get('estatura')*validated_data.get('estatura'))
+    planeObject = Planes.objects.get(plan_id=planId.plan_id)
+    userInstance = User.objects.create(plan_id = planeObject,**validated_data)
     Imc.objects.create(user=userInstance, imc_value = imcValues)
     return userInstance
   def to_representation(self, obj):
@@ -35,5 +35,5 @@ class UserSerializer(serializers.ModelSerializer):
       'estatura': user.estatura,
       'peso': user.peso,
       'genero': user.genero,
-      'plan_id': plan.plan_id,
+      'plan_id': plan.id,
     }
