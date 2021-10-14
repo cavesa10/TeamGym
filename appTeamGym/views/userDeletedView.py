@@ -7,12 +7,12 @@ from appTeamGym.models.user import User
 from appTeamGym.serializers.user_serializer import UserSerializer
 
 
-class UserDeletedView(generics.RetrieveAPIView):
+class UserDeletedView(generics.DestroyAPIView):
     queryset = User.objects.all() # obtiene el modelo seleccionado
     serializer_class = UserSerializer # serializa la info recibido
     permission_classes = (IsAuthenticated, )
 
-    def destroy(self, request, *args, **kwargs):
+    def delete(self, request, *args, **kwargs):
         user = self.get_object()
         user.delete()
         return {"Message": "Item has been deleted"}
