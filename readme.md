@@ -1,4 +1,4 @@
-# Proyecto Gym Team
+# Proyecto Gym Team - BackEnd
 
 1. Crear un ambiente venv
 `virtualenv env`
