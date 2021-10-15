@@ -102,10 +102,10 @@ WSGI_APPLICATION = 'TeamGym.wsgi.application'
 DATABASES = {
 'default': {
 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-'NAME': 'd2tm4fbs4nnjfj',
-'USER': 'immqfyrwkhjffi',
-'PASSWORD': '8607ec7cb12af59e65665965df0a20fc2107e3bb800777e57720577e7bb4644b',
-'HOST': 'ec2-52-7-228-45.compute-1.amazonaws.com',
+'NAME': 'd19bq8dptd1m9t',
+'USER': 'lqnysxhkmbltsz',
+'PASSWORD': '82fd011905cbb357baefc65991b0b611985b3a7affaf67c2d6f52e98d0246339',
+'HOST': 'ec2-34-205-14-168.compute-1.amazonaws.com',
 'PORT': '5432',
 }
 }
