@@ -19,17 +19,32 @@ class UserSerializer(serializers.ModelSerializer):
     userInstance = User.objects.create(plan_id = planeObject,**validated_data)
     Imc.objects.create(user=userInstance, imc_value = imcValues)
     return userInstance
-  # def update(self, validated_data):
-  #   planId = validated_data.pop('plan_id')
-  #   imcValues = validated_data.get('peso')/(validated_data.get('estatura')**2)
-  #   planeObject = Planes.objects.get(plan_id=planId.plan_id)
-  #   userInstance = User.objects.create(plan_id = planeObject,**validated_data)
-  #   Imc.objects.create(user=userInstance, imc_value = imcValues)
-  #   return userInstance
+  def update(self,instance,validated_data ):
+    planId = validated_data.pop('plan_id')
+    imcValues = validated_data.get('peso')/(validated_data.get('estatura')**2)
+    planeObject = Planes.objects.get(plan_id=planId.plan_id)
+    instance.email = validated_data.get('email')
+    instance.name = validated_data.get('name')
+    instance.last_name = validated_data.get('last_name')
+    instance.fecha_nacimiento = validated_data.get('fecha_nacimiento')
+    instance.frequencia_fisica = validated_data.get('frequencia_fisica')
+    instance.objetivo_usuario = validated_data.get('objetivo_usuario')
+    instance.estatura = validated_data.get('estatura')
+    instance.peso = validated_data.get('peso')
+    instance.genero = validated_data.get('genero')
+    instance.plan_id = planeObject
+    Imc.objects.create(user=instance, imc_value = imcValues)
+    instance.save()
+    return instance
   def to_representation(self, value):
     user = User.objects.get(id=value.id)
-    plan = Planes.objects.get(plan_id=value.id)
-    imc = Imc.objects.get(user=value.id)
+    imcs = Imc.objects.filter(user=value.id).all()
+    imcObj = []
+    for imc in imcs:
+      imcObj.append({
+        'imc_value': imc.imc_value,
+        'fecha_registro': imc.fecha_registro,
+      })
     return {
       'username': user.username,
       'email': user.email,
@@ -41,9 +56,6 @@ class UserSerializer(serializers.ModelSerializer):
       'estatura': user.estatura,
       'peso': user.peso,
       'genero': user.genero,
-      'plan_id': plan.plan_id,
-      'imc': {
-        'imc_value': imc.imc_value,
-        'fecha_registro': imc.fecha_registro,
-      }
+      'plan_id': user.plan_id.plan_nombre,
+      'imc': imcObj
     }
