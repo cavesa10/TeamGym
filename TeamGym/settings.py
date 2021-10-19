@@ -29,6 +29,7 @@ SECRET_KEY = 'django-insecure-864u-4_h#^yr(n-p-o-c@5yzgh%=wql(z+khwtp!$fb0ew)m)b
 DEBUG = True
 
 ALLOWED_HOSTS = []
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 # Application definition
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'appTeamGym',
+    'corsheaders',
 ]
 
 SIMPLE_JWT = {
@@ -63,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 REST_FRAMEWORK = {
