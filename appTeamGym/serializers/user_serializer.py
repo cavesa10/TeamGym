@@ -23,6 +23,7 @@ class UserSerializer(serializers.ModelSerializer):
     planId = validated_data.pop('plan_id')
     imcValues = validated_data.get('peso')/(validated_data.get('estatura')**2)
     planeObject = Planes.objects.get(plan_id=planId.plan_id)
+    instance.password = validated_data.get('password', instance.password)
     instance.email = validated_data.get('email')
     instance.name = validated_data.get('name')
     instance.last_name = validated_data.get('last_name')
@@ -47,6 +48,7 @@ class UserSerializer(serializers.ModelSerializer):
       })
     return {
       'username': user.username,
+      'password': user.password,
       'email': user.email,
       'name': user.name,
       'last_name': user.last_name,
