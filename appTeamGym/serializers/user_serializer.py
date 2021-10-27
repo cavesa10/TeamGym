@@ -19,7 +19,30 @@ class UserSerializer(serializers.ModelSerializer):
     userInstance = User.objects.create(plan_id = planeObject,**validated_data)
     Imc.objects.create(user=userInstance, imc_value = imcValues)
     return userInstance
-
+  def to_representation(self, value):
+    user = User.objects.get(id=value.id)
+    imcs = Imc.objects.filter(user=value.id).all()
+    imcObj = []
+    for imc in imcs:
+      imcObj.append({
+        'imc_value': imc.imc_value,
+        'fecha_registro': imc.fecha_registro,
+      })
+    return {
+      'username': user.username,
+      'password': user.password,
+      'email': user.email,
+      'name': user.name,
+      'last_name': user.last_name,
+      'fecha_nacimiento': user.fecha_nacimiento,
+      'frequencia_fisica': user.frequencia_fisica,
+      'objetivo_usuario': user.objetivo_usuario,
+      'estatura': user.estatura,
+      'peso': user.peso,
+      'genero': user.genero,
+      'plan_id': user.plan_id.plan_nombre,
+      'imc': imcObj
+    }
 class UserUpdateSerializer(serializers.ModelSerializer):
   imc = imc_serializer(read_only=True)
   plan_id = PrimaryKeyRelatedField(queryset=Planes.objects.all(), required=False)
