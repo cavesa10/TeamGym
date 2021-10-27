@@ -47,9 +47,14 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
   def save(self, **kwargs):
-    some_salt = 'mMUj0DrIK6vgtdIYepkIxN'
-    self.password = make_password(self.password, some_salt)
-    super().save(**kwargs)
+      print("Entre")
+      some_salt = 'mMUj0DrIK6vgtdIYepkIxN'
+      self.password = make_password(self.password, some_salt)
+      super().save(**kwargs)
+
+  def _save(self, **kwargs):
+      print("Entre")
+      super().save(**kwargs)
 
   objects = UserManager()
   USERNAME_FIELD = 'username'

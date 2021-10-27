@@ -9,5 +9,6 @@ urlpatterns = [
     path('login/', TokenObtainPairView.as_view()),
     path('user/', views.UserCreateView.as_view()),
     path('user/<int:pk>/', views.UserDetailView.as_view()),
+    path('user/update/<int:pk>/', views.UserUpdateView.as_view()),
     path('videos/<int:pk>/', views.VideosPlanesView.as_view()),
 ]
