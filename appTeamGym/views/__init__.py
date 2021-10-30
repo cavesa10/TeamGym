@@ -3,3 +3,9 @@ from .userDetailView import UserDetailView
 from .VideosPlanesView import VideosPlanesView
 from .userUpdateView import UserUpdateView
 from .changePasswordView import ChangePasswordView
+from .videosCreateView import VideosCreateView
+from .videoView import VideoUpdateView
+from .videoView import VideoDeleteView
+from .planesView import PlanUpdateView
+from .planesView import PlanCreateView
+from .planesView import PlanDeleteView
